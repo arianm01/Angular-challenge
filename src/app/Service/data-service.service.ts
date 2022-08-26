@@ -1,12 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {catchError, map, mergeMap, of, tap} from "rxjs";
+import {BehaviorSubject, catchError, map, mergeMap, of, take, tap} from "rxjs";
 import {Data, Numbers} from "../Model/App.Model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataServiceService {
+  status: BehaviorSubject<string> = new BehaviorSubject<string>("All");
+  loading: boolean = false;
+
 
   constructor(private httpClient: HttpClient) {}
 
@@ -23,7 +26,9 @@ export class DataServiceService {
   }
 
   prepareFunction(data: Data) {
-    return data.Number.map(item => {
+    return data.Number.filter(item => {
+      return item.action === this.status.getValue() || this.status.getValue() === "All";
+    }).map(item => {
       return {
         p: item.value,
         q: item.action === "add" ? data.add.value : data.multiply.value,
@@ -33,7 +38,9 @@ export class DataServiceService {
   }
 
   getData() {
+    this.loading = true
     return this.dataFunction().pipe(
+      take(1),
       mergeMap(data => this.AddFunction().pipe(map(add => ({
         Number: data,
         add: add
@@ -44,9 +51,6 @@ export class DataServiceService {
       })), catchError(() => of("missing data")))),
       map((data: Data) => {
         return this.prepareFunction(data)
-      }),
-      tap(data => {
-        console.log(data)
       }),
     )
   }

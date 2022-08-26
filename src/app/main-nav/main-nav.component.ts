@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {DataServiceService} from "../Service/data-service.service";
 
 @Component({
   selector: 'app-main-nav',
@@ -13,6 +14,10 @@ export class MainNavComponent {
   //     shareReplay()
   //   );
 
-  constructor() {}
+  constructor(private dataService: DataServiceService) {}
 
+  onClick(query: string){
+    this.dataService.status.next(query)
+    console.log(this.dataService.status.getValue())
+  }
 }

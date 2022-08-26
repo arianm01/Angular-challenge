@@ -5,10 +5,7 @@
   "projects": {
     "Angular-Challenge-1": {
       "i18n": {
-        "sourceLocale": "en-US",
-        "locales": {
-          "fa-IR": "src/locale/messages.fa.xlf"
-        }
+        "sourceLocale": "en-US"
       },
       "projectType": "application",
       "schematics": {},
@@ -19,7 +16,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": ["fa-IR"],
             "outputPath": "dist/angular-challenge-1",
             "index": "src/index.html",
             "main": "src/main.ts",
