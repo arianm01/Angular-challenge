@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
-    <img *ngIf="expression.action === 'add'" mat-card-avatar src="assets/plus.png">
-    <img *ngIf="expression.action === 'multiply'" mat-card-avatar src="assets/close.png">
+    <img *ngIf="expression.action === 'add'" mat-card-avatar src="assets/plus.png" alt="plus">
+    <img *ngIf="expression.action === 'multiply'" mat-card-avatar src="assets/close.png" alt="multiply">
     <mat-card-title>{{expression.action}}</mat-card-title>
     <mat-card-subtitle>{{ getValid() }}</mat-card-subtitle>
   </mat-card-header>
