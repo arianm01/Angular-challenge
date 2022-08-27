@@ -27,10 +27,8 @@ export class DataServiceService {
   }
 
   prepareFunction(data: Data) {
-    console.log(data)
-    return data.Number.filter(item => {
-      return item.action === this.status.getValue() || this.status.getValue() === "All";
-    }).map(item => {
+    return data.Number.filter(item => item.action === this.status.getValue() || this.status.getValue() === "All")
+      .map(item => {
       return {
         p: item.value,
         q: item.action === "add" ? data.add.value : data.multiply.value,
