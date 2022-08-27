@@ -5,12 +5,12 @@ export interface Numbers {
 
 export interface Expressions {
   p: number,
-  q: number,
+  q: number | string,
   action: string
 }
 
 export interface Data {
   Number: Numbers[],
-  add: { value: number },
-  multiply: { value: number }
+  add: { value: number | string },
+  multiply: { value: number | string }
 }

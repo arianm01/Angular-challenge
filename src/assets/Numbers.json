@@ -22,5 +22,25 @@
   {
     "value": 6,
     "action": "multiply"
+  },
+  {
+    "value": 6,
+    "action": "multiply"
+  },
+  {
+    "value": 7,
+    "action": "add"
+  },
+  {
+    "value": 8,
+    "action": "add"
+  },
+  {
+    "value": 9,
+    "action": "multiply"
+  },
+  {
+    "value": 10,
+    "action": "multiply"
   }
 ]

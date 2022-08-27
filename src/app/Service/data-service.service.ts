@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, catchError, map, mergeMap, of, take, tap} from "rxjs";
+import {BehaviorSubject, catchError, map, mergeMap, of, take} from "rxjs";
 import {Data, Numbers} from "../Model/App.Model";
 
 @Injectable({
@@ -12,6 +12,7 @@ export class DataServiceService {
 
 
   constructor(private httpClient: HttpClient) {}
+
 
   AddFunction() {
     return this.httpClient.get<{ value: number }>('assets/Add.json')
@@ -26,6 +27,7 @@ export class DataServiceService {
   }
 
   prepareFunction(data: Data) {
+    console.log(data)
     return data.Number.filter(item => {
       return item.action === this.status.getValue() || this.status.getValue() === "All";
     }).map(item => {
@@ -39,16 +41,15 @@ export class DataServiceService {
 
   getData() {
     this.loading = true
+    let missing: string = "Missing Data"
     return this.dataFunction().pipe(
       take(1),
-      mergeMap(data => this.AddFunction().pipe(map(add => ({
-        Number: data,
-        add: add
-      })), catchError(() => of("missing data")))),
-      mergeMap((data: any) => this.MultiplyFunction().pipe(map(Multiply => ({
-        ...data,
-        multiply: Multiply
-      })), catchError(() => of("missing data")))),
+      mergeMap(data => this.AddFunction().pipe(
+        map(add => ({Number: data, add: add})),
+        catchError(() => of({Number: data, add: {value: missing}})))),
+      mergeMap((data: any) => this.MultiplyFunction().pipe(
+        map(Multiply => ({...data, multiply: Multiply})),
+        catchError(() => of({...data, multiply: {value: missing}})))),
       map((data: Data) => {
         return this.prepareFunction(data)
       }),
