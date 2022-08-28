@@ -9,14 +9,7 @@ import {BehaviorSubject} from "rxjs";
 })
 export class MainNavComponent {
 
-  // isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  //   .pipe(
-  //     map(result => result.matches),
-  //     shareReplay()
-  //   );
-
-  constructor(private dataService: DataServiceService) {
-  }
+  constructor(private dataService: DataServiceService) {}
 
   onClick(query: string) {
     if (!this.dataService.status)

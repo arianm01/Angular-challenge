@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.data = data
           this.dataService.loading = false
         }, err =>{
-          this.snackbar.open("there is an internal error","",{duration: 3000})
+          this.snackbar.open("there is an internal error","",{duration: 4000})
         }
       )
   }
