@@ -2,9 +2,9 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport>
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item (click)="onClick('All')">All</a>
-      <a mat-list-item (click)="onClick('add')">Add</a>
-      <a mat-list-item (click)="onClick('multiply')">Multiple</a>
+      <a mat-list-item id="All" (click)="onClick('All')">All</a>
+      <a mat-list-item id="add" (click)="onClick('add')">Add</a>
+      <a mat-list-item id="multiply" (click)="onClick('multiply')">Multiply</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

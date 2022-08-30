@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExpressionComponent } from './expression.component';
 
-describe('ExpressionComponent', () => {
+xdescribe('ExpressionComponent', () => {
   let component: ExpressionComponent;
   let fixture: ComponentFixture<ExpressionComponent>;
 
