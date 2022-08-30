@@ -51,13 +51,14 @@ export class DataServiceService {
 
   getData() {
     this.loading = true
-    let missing = "Missing Data"
     return this.dataFunction().pipe(
       take(1),
       mergeMap(data => this.AddFunction().pipe(
-        map(add => ({Number: data, add: add})))),
+        map(add => ({Number: data, add: add})))
+      ),
       mergeMap((data: any) => this.MultiplyFunction().pipe(
-        map(Multiply => ({...data, multiply: Multiply})))),
+        map(Multiply => ({...data, multiply: Multiply})))
+      ),
       map((data: Data) => {
         return this.prepareFunction(data)
       }),
