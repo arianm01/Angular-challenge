@@ -9,11 +9,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   data: Expressions[] = [];
 
-  constructor(public dataService: DataServiceService, private snackbar: MatSnackBar) {
-  }
+  constructor(public dataService: DataServiceService, private snackbar: MatSnackBar) {}
 
 
   ngOnInit(): void {

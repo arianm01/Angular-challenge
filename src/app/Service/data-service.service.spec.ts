@@ -102,6 +102,7 @@ describe('DataServiceService', () => {
     DataService.status.next("Add")
     expect(DataService.getStatus()).toEqual("Add")
   });
+
   it('should return the value of Output', () => {
     let data: Data = {
       Number: [{"value": 1, "action": "add"}, {"value": 2, "action": "multiply"},],
@@ -119,9 +120,35 @@ describe('DataServiceService', () => {
     expect(DataService.prepareFunction(data)).toEqual(output)
     expect(DataService.prepareFunction(corruptedData)).toEqual(corruptedOutput)
   });
-  // it('should return the value of status', () => {
-  //   expect(DataService.getStatus()).toEqual("All")
-  //   DataService.status.next("Add")
-  //   expect(DataService.getStatus()).toEqual("Add")
-  // });
+
+  it('should return the output from the getData function', () => {
+    const numbers: Numbers[] = [{"value": 1, "action": "add"}, {"value": 2, "action": "multiply"}, {
+      "value": 3,
+      "action": "add"
+    }]
+    const add = {"value": 5}
+    const multiply = {"value": 10}
+    const output: Expressions[] = [{p: 1, q: 5, action: "add"}, {p: 2, q: 10, action: "multiply"}, {
+      p: 3,
+      q: 5,
+      action: "add"
+    }]
+
+    DataService.getData().subscribe(data => {
+      expect(data).toEqual(output)
+    })
+
+    const reqNumber = httpTestingController.expectOne("assets/Numbers.json")
+    expect(reqNumber.request.method).toEqual('GET')
+    reqNumber.flush(numbers);
+
+    const reqAdd = httpTestingController.expectOne("assets/Add.json")
+    expect(reqAdd.request.method).toEqual('GET')
+    reqAdd.flush(add);
+
+    const reqMultiply = httpTestingController.expectOne("assets/Multiply.json")
+    expect(reqMultiply.request.method).toEqual('GET')
+    reqMultiply.flush(multiply);
+
+  });
 });
