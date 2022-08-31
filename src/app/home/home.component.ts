@@ -30,6 +30,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dataService.status.complete()
+    this.dataService.status.unsubscribe()
   }
 }

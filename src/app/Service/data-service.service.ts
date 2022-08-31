@@ -19,13 +19,13 @@ export class DataServiceService {
 
   AddFunction() {
     return this.httpClient.get<{ value: number }>('assets/Add.json').pipe(
-      catchError(() => of("Missing Data"))
+      catchError(() => of({value: "Missing Data"}))
     )
   }
 
   MultiplyFunction() {
     return this.httpClient.get<{ value: number }>('assets/Multiply.json').pipe(
-      catchError(() => of("Missing Data"))
+      catchError(() => of({value: "Missing Data"}))
     )
   }
 
@@ -34,7 +34,7 @@ export class DataServiceService {
   }
 
   prepareFunction(data: Data) {
-    return data.Number.filter(item => item.action === this.status.getValue() || this.status.getValue() === "All")
+    return data.Number.filter(item => item.action === this.getStatus() || this.getStatus() === "All")
       .map(item => {
         return {
           p: item.value,
@@ -45,8 +45,8 @@ export class DataServiceService {
   }
 
   getQ(item: Numbers, data: Data) {
-    return item.action === "add" ? data.add.value ? data.add.value : "Missing Data" :
-      data.multiply.value ? data.multiply.value : "Missing Data";
+    console.log(data)
+    return item.action === "add" ? data.add.value : data.multiply.value
   }
 
   getData() {

@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {DataServiceService} from "../Service/data-service.service";
-import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-main-nav',
@@ -12,9 +11,6 @@ export class MainNavComponent {
   constructor(private dataService: DataServiceService) {}
 
   onClick(query: string) {
-    if (!this.dataService.status)
-      this.dataService.status = new BehaviorSubject<string>(query)
-    else
-      this.dataService.status.next(query)
+    this.dataService.status.next(query)
   }
 }
