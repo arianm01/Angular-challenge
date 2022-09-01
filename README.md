@@ -4,24 +4,27 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Priview
 
-to see the project visit this Link: https://angular-challenge-tawny.vercel.app/
+To see the project visit this Link: https://angular-challenge-tawny.vercel.app
 
-## Code scaffolding
+This project is powered by angular, angular material, and bootstrap. 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Components
 
-## Build
+### main-nav Component
+This navigation bar is made by Angular material Component Schematics and it have a menu with 3 options that filter the result that you want to see in the page.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Home Component
+In this component we have a list of Expression components that are used to show and display the content of our project.
 
-## Running unit tests
+### Expression Component
+Here we have the data we want to display and we check that this data is valid or not and how to display the content.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Service
 
-## Running end-to-end tests
+### Data Service
+In this service we have status that is a BehaviorSubject and filters the result. then there is getData() function that send requests for Numbers.json, Add.json and Multiply.json and returns the data for us to display on our page. 
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Tests
 
-## Further help
+in this project we have a 20 tests for all components and services that major focus of on DataService.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
