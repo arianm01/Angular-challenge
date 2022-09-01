@@ -1,19 +1,12 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-expression',
   templateUrl: './expression.component.html',
   styleUrls: ['./expression.component.css']
 })
-export class ExpressionComponent implements OnInit {
+export class ExpressionComponent {
   @Input('item') expression: any
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    console.log(this.expression)
-  }
 
   result() {
     return this.validate() ? this.expression.p + (this.expression.action === "add" ? "+" : "*") + this.expression.q + "=" +
