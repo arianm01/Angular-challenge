@@ -5,7 +5,9 @@ import {DataServiceService} from "../Service/data-service.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Expressions} from "../Model/App.Model";
-import {BehaviorSubject, of} from "rxjs";
+import {BehaviorSubject, of, throwError} from "rxjs";
+import {By} from "@angular/platform-browser";
+import {ExpressionComponent} from "./expression/expression.component";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -17,7 +19,7 @@ describe('HomeComponent', () => {
     const DataSpy = jasmine.createSpyObj('DataServiceService', ['getData']);
     const snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
     await TestBed.configureTestingModule({
-      declarations: [HomeComponent],
+      declarations: [HomeComponent, ExpressionComponent],
       imports: [HttpClientTestingModule],
       providers: [
         {provide: DataServiceService, useValue: DataSpy},
@@ -29,6 +31,7 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
     snackbar = fixture.debugElement.injector.get(MatSnackBar)
     DataService = fixture.debugElement.injector.get(DataServiceService)
+    DataService.status = new BehaviorSubject<string>("All")
   });
 
   it('should return data', () => {
@@ -36,23 +39,28 @@ describe('HomeComponent', () => {
     DataService.getData = () => {
       return of(output)
     }
-    DataService.status = new BehaviorSubject<string>("All")
 
     fixture.detectChanges()
     component.ngOnInit()
 
     expect(component.data).toEqual(output)
   });
-  xit('should return Error', () => {
-    let output: Expressions[] = [{p: 1, q: 5, action: "add"}, {p: 2, q: 10, action: "multiply"}]
+  it('should return Error', () => {
     DataService.getData = () => {
-      return of(output)
+      return throwError(() => new Error("error"))
     }
-    DataService.status = new BehaviorSubject<string>("All")
 
     fixture.detectChanges()
     component.ngOnInit()
 
-    expect(component.data).toEqual(output)
+    expect(snackbar.open).toHaveBeenCalledWith("there is an internal error", "", {duration: 4000})
+  });
+  it('should render the component correctly', () => {
+    component.data = [{p: 1, q: 5, action: "add"}, {p: 2, q: 10, action: "multiply"}, {p: 3, q: 5, action: "add"}]
+
+    fixture.detectChanges()
+    let items = fixture.debugElement.queryAll(By.directive(ExpressionComponent))
+
+    expect(items.length).toBe(3)
   });
 });

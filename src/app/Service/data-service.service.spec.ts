@@ -120,6 +120,17 @@ describe('DataServiceService', () => {
     expect(DataService.prepareFunction(data)).toEqual(output)
     expect(DataService.prepareFunction(corruptedData)).toEqual(corruptedOutput)
   });
+  it('should return just value of Add in Output', () => {
+    DataService.status.next('add')
+    let data: Data = {
+      Number: [{"value": 1, "action": "add"}, {"value": 2, "action": "multiply"},],
+      add: {value: 5},
+      multiply: {value: 10}
+    }
+    let output: Expressions[] = [{p: 1, q: 5, action: "add"}]
+
+    expect(DataService.prepareFunction(data)).toEqual(output)
+  });
 
   it('should return the output from the getData function', () => {
     const numbers: Numbers[] = [{"value": 1, "action": "add"}, {"value": 2, "action": "multiply"}, {
