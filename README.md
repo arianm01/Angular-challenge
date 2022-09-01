@@ -26,5 +26,5 @@ In this service we have status that is a BehaviorSubject and filters the result.
 
 ## Tests
 
-in this project we have a 20 tests for all components and services that major focus of on DataService.
+in this project we have 20 tests for all components and services that major focus of on DataService.
 
